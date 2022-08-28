@@ -4,7 +4,7 @@ import { API_URL } from '../config'
 
 export const loginUser = createAsyncThunk('user/loginUser', async ({ formBody, redirect }, { rejectWithValue }) => {
     try {
-        const res = await fetch(`${API_URL}/api/auth/login`, {
+        const res = await fetch(`${API_URL}api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export const authUser = createAsyncThunk('user/authUser', async (_, { rejectWith
     try {
         const token = localStorage.getItem('token') || ''
 
-        const res = await fetch(`${API_URL}/api/auth/auth`, {
+        const res = await fetch(`${API_URL}api/auth/auth`, {
             headers: { Authorization: `Bearer ${token}` }
         })
 
