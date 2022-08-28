@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { callAlert } from '../../store/alert'
-import { API_URL } from '../../../config'
+import { API_URL } from '../../config'
 
 import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button'

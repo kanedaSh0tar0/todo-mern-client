@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import { API_URL } from '../../config'
+import { API_URL } from '../config'
 
 export const loginUser = createAsyncThunk('user/loginUser', async ({ formBody, redirect }, { rejectWithValue }) => {
     try {
