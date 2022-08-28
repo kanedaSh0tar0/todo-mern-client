@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@400;500;700&display=swap");
+
+:root {
+    /* COLORS */
+
+    --darkBlue: #005686;
+    --blue: #00659d;
+    --lightBlue: #7db6d6;
+
+    --green: #4cb08e;
+    --lightGreen: #59cea7;
+
+    --yellow: #ffd791;
+    --pink: #ec9090;
+    --white: #dfdfdf;
+
+    /* FONTS */
+
+    --fontSizeSmall: 14px;
+    --fontSizeMedium: 18px;
+    --fontSizeBig: 22px;
+    --fontSizeBiggest: 28px;
+
+    --fontFamily: "Edu NSW ACT Foundation", cursive;
+    --fontRegular: 400;
+    --fontMedium: 500;
+    --fontBold: 700;
+
+    /* INDENTS */
+
+    --indentSmall: 10px;
+    --indentMedium: 20px;
+
+    /* NAVBAR */
+
+    --navbarWidth: 320px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--fontFamily);
+    font-weight: var(--fontRegular);
+}
+
+body {
+    background-color: var(--lightBlue);
+}

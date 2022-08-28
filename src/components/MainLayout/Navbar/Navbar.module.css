@@ -1,0 +1,70 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px 0;
+    max-width: var(--navbarWidth);
+    width: 100%;
+    height: 100%;
+    padding: 20px 10px;
+    background-color: var(--darkBlue);
+}
+
+.logoArea {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--indentMedium);
+}
+
+.greetings {
+    word-break: break-all;
+    text-align: center;
+    font-size: var(--fontSizeBiggest);
+    font-weight: var(--fontBold);
+    color: var(--green);
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+
+.logo:hover {
+    animation-name: logoHover;
+    animation-duration: 1s;
+}
+
+@keyframes logoHover {
+    25% {
+        transform: rotate(10deg) scale(1.05);
+    }
+
+    50% {
+        transform: rotate(-10deg) scale(1);
+    }
+
+    75% {
+        transform: rotate(10deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+.logout {
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.createFolderBtn {
+    background-color: initial;
+    border: none;
+}

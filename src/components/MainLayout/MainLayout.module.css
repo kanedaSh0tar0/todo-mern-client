@@ -1,0 +1,9 @@
+.wrapper {
+    display: flex;
+}
+
+.outlet {
+    margin-left: var(--navbarWidth);
+    padding: var(--indentMedium);
+    width: 100%;
+}

@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - (var(--indentMedium) * 2));
+}
+
+.folderContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 20%;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--yellow);
+    padding: var(--indentSmall) var(--indentMedium);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.folderName {
+    font-size: var(--fontSizeBiggest);
+    font-weight: var(--fontBold);
+
+    margin-right: var(--indentMedium);
+}
+
+.todoContainer {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    gap: 10px 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: var(--yellow);
+    padding: 15px;
+}
+
+.addTodo {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.addText {
+    font-size: var(--fontSizeBig);
+    font-weight: var(--fontBold);
+    color: var(--green);
+    transition: 0.5s ease-in-out;
+}
+
+@media (any-hover: hover) {
+    .addTodo:hover .addText {
+        color: var(--pink);
+    }
+
+    .addTodo:hover .addIcon {
+        fill: var(--pink);
+        transform: rotate(0.5turn);
+    }
+}

@@ -1,0 +1,12 @@
+.title {
+    font-size: var(--fontSizeBiggest);
+    font-weight: var(--fontBold);
+    text-align: center;
+    color: var(--green);
+    margin-bottom: 20px;
+}
+
+.buttonsContainer {
+    display: flex;
+    gap: 0 var(--indentSmall);
+}

@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+}
+
+.text {
+    width: 100%;
+    min-height: 200px;
+    resize: none;
+
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 10px;
+
+    font-size: var(--fontSizeMedium);
+    font-weight: var(--fontBold);
+    color: var(--darkBlue);
+}
+
+.text::placeholder {
+    color: var(--blue);
+}
+
+.select {
+    width: 200px;
+}
+
+.emptyField {
+    border: 2px solid red;
+}

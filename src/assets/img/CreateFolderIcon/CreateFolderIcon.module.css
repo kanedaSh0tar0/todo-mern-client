@@ -1,0 +1,38 @@
+.add {
+    width: 50px;
+    height: 50px;
+    fill: none;
+    stroke: var(--green);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+}
+
+@media (any-hover: hover) {
+    .add:hover {
+        stroke: var(--pink);
+        animation-name: hoverAdd;
+        animation-duration: 0.5s;
+    }
+}
+
+@keyframes hoverAdd {
+    25% {
+        transform: scale(1.05);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    75% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

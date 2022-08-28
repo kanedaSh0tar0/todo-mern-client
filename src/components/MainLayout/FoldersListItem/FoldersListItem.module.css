@@ -1,0 +1,27 @@
+.folder {
+    display: flex;
+    align-items: center;
+
+    padding: 4px 10px;
+    border: 2px solid #000;
+    border-radius: 4px;
+
+    font-size: var(--fontSizeMedium);
+    font-weight: var(--fontMedium);
+    color: #000;
+
+    transition: 0.2s linear;
+    cursor: pointer;
+}
+
+.folder:hover,
+.folder_over {
+    transform: scale(1.03);
+}
+
+.color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

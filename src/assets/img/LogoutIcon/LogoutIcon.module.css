@@ -1,0 +1,22 @@
+.logout {
+    fill: var(--green);
+    stroke: var(--green);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+}
+
+.logoutArrow {
+    transition: transform 0.5s ease-in-out;
+}
+
+.logout:hover {
+    fill: var(--pink);
+    stroke: var(--pink);
+}
+
+.logout:hover .logoutArrow {
+    transform: translateX(5px);
+}

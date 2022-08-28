@@ -1,0 +1,80 @@
+.container {
+    position: relative;
+    border-radius: 5px;
+}
+
+.window {
+    position: absolute;
+    width: max-content;
+    background-color: var(--white);
+    padding: var(--indentSmall);
+    border-radius: 5px;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.window::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.window_bottom {
+    left: var(--indentMedium);
+    bottom: calc(-100% + -15px);
+}
+
+.window_bottom::after {
+    left: 10px;
+    top: -10px;
+
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid var(--white);
+}
+
+.window_top {
+    left: var(--indentMedium);
+    top: calc(-100% + -15px);
+}
+
+.window_top::after {
+    left: 10px;
+    bottom: -10px;
+
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--white);
+}
+
+.window_right {
+    left: calc(100% + 15px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.window_right::after {
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid var(--white);
+}
+
+.window_left {
+    right: calc(100% + 15px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.window_left::after {
+    right: -10px;
+    top: 10px;
+
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid var(--white);
+}

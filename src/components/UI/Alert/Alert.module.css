@@ -1,0 +1,48 @@
+.container {
+    position: fixed;
+    bottom: 20px;
+    right: -300px;
+    width: 300px;
+    background-color: var(--darkBlue);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 999;
+    transition: 0.1s ease-in-out;
+}
+
+.container_move {
+    transform: translateX(-320px);
+}
+
+.timer_move {
+    transform: translateX(-100%);
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 4px 0;
+    width: 100%;
+    height: 40px;
+}
+
+.message {
+    padding: 5px 10px;
+    font-size: var(--fontSizeMedium);
+    font-weight: var(--fontMedium);
+    color: var(--green);
+    min-height: 80px;
+}
+
+.header_green {
+    background-color: var(--green);
+}
+
+.header_red {
+    background-color: red;
+}
+
+.close {
+    height: 100%;
+    fill: var(--blue);
+}

@@ -1,0 +1,37 @@
+.checkbox {
+    min-width: 30px;
+    min-height: 30px;
+    width: 30px;
+    height: 30px;
+    transition: 0.2s ease-in-out;
+}
+
+.mark {
+    fill: none;
+    stroke: #000;
+    stroke-width: 2;
+    stroke-dasharray: 200%;
+    stroke-dashoffset: 200%;
+}
+
+.mark_active {
+    animation-name: check;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes check {
+    from {
+        stroke-dashoffset: 200%;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@media (any-hover: hover) {
+    .checkbox:hover {
+        transform: scale(1.1);
+    }
+}

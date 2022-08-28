@@ -1,0 +1,58 @@
+.react-select__control {
+    width: 100% !important;
+    height: 40px !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+}
+
+.react-select__value-container {
+    padding: 8px 5px !important;
+}
+
+.react-select__control--menu-is-open {
+    border: none !important;
+}
+
+.react-select__control--menu-is-open .react-select__indicator {
+    transform: rotate(0.5turn);
+}
+
+.react-select__single-value {
+    font-size: var(--fontSizeMedium) !important;
+    font-weight: var(--fontBold) !important;
+    color: var(--darkBlue) !important;
+}
+
+.react-select__indicator-separator {
+    display: none !important;
+}
+
+.react-select__indicator {
+    color: var(--darkBlue) !important;
+    transition: 0.2s ease-in-out !important;
+}
+
+.react-select__menu {
+    padding: 0 !important;
+    color: var(--darkBlue) !important;
+    background-color: var(--green) !important;
+}
+
+.react-select__option {
+    font-size: var(--fontSizeMedium) !important;
+    font-weight: var(--fontBold) !important;
+    cursor: pointer !important;
+    transition: 0.3s linear !important;
+}
+
+.react-select__option--is-focused:not(.react-select__option--is-selected) {
+    background-color: transparent !important;
+    color: var(--pink) !important;
+}
+
+.react-select__option--is-selected {
+    background-color: var(--pink) !important;
+    color: var(--green) !important;
+}
