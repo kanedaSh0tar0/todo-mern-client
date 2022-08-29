@@ -13,6 +13,7 @@ import Todos from '../MainLayout/Todos/Todos'
 import CreateTodo from '../MainLayout/CreateTodo/CreateTodo'
 
 import Alert from '../UI/Alert/Alert'
+import Loader from '../UI/Loader/Loader'
 
 import './App.css'
 
@@ -46,6 +47,7 @@ function App() {
       </Routes>
 
       <Alert />
+      <Loader />
     </>
 
   )

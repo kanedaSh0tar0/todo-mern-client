@@ -18,7 +18,6 @@ function FoldersList() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
-
     useEffect(() => {
         dispatch(getFolders())
     }, [])
@@ -30,7 +29,7 @@ function FoldersList() {
     }, [folders])
 
     const handleСhooseFolder = (folder) => {
-        dispatch(setCurrentFolder({ name: folder.name, id: folder.id }))
+        dispatch(setCurrentFolder({ name: folder.name, id: folder._id, color: folder.color }))
         if (location !== '/') {
             navigate('/')
         } else dispatch(getTodos(folder.id))
@@ -47,7 +46,7 @@ function FoldersList() {
                     return <FoldersListItem
                         key={folder._id}
                         folder={folder}
-                        click={() => handleСhooseFolder({ name: folder.name, id: folder._id })}
+                        click={() => handleСhooseFolder(folder)}
                         classes={folders.currentFolder.id === folder._id && styles.folder_active}
                     />
                 })}

@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import { API_URL } from "../config"
+import { API_URL } from '../config'
 
 export const getFolders = createAsyncThunk('folders/getFolders', async (_, { dispatch, rejecteWithValue }) => {
     try {
@@ -20,7 +20,7 @@ export const getFolders = createAsyncThunk('folders/getFolders', async (_, { dis
 
         return resBody
     } catch (err) {
-        console.log(err);
+        console.log(err)
         rejecteWithValue(err)
     }
 })
@@ -30,7 +30,8 @@ const initialState = {
     folders: [],
     currentFolder: {
         name: '',
-        id: ''
+        id: '',
+        color: ''
     }
 }
 
@@ -41,6 +42,7 @@ const folders = createSlice({
         setCurrentFolder: (state, action) => {
             state.currentFolder.name = action.payload.name
             state.currentFolder.id = action.payload.id
+            state.currentFolder.color = action.payload.color
         }
     },
     extraReducers: builder => {

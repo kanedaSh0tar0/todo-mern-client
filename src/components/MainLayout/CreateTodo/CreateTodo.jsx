@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { requestHelper } from '../../../utils/requestHelper'
 import { setCurrentFolder } from '../../../store/folders'
 import { callAlert } from '../../../store/alert'
-import { setIsOpen } from '../../../store/modal'
 
 import Input from '../../UI/Input/Input'
 import Button from '../../UI/Button/Button'
@@ -23,10 +22,6 @@ function CreateTodo() {
     const dispatch = useDispatch()
     const folders = useSelector(state => state.folders.folders)
     const currentFolder = useSelector(state => state.folders.currentFolder)
-
-    useEffect(() => {
-        if (!currentFolder.id) dispatch(setCurrentFolder({ id: folders[0]?._id, name: folders[0]?.name }))
-    }, [])
 
     const createTodo = () => {
         if (!title.trim().length) {
@@ -66,12 +61,14 @@ function CreateTodo() {
         <div className={styles.container}>
             {folders.length > 0
                 && <SelectUI
-                    options={folders.map(option => {
-                        return { value: option._id, label: option.name }
-                    })}
+                    options={
+                        [{ value: '', label: 'All' }, ...folders.map(option => {
+                            return { value: option._id, label: option.name }
+                        })]
+                    }
                     classes={styles.select}
                     setValue={item => dispatch(setCurrentFolder({ name: item.label, id: item.value }))}
-                    currentValue={currentFolder.id}
+                    currentValue={currentFolder.id || ''}
                 />
             }
 

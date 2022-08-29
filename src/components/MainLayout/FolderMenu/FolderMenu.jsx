@@ -4,7 +4,7 @@ import GearIcon from '../../../assets/img/GearIcon/GearIcon'
 
 import styles from './FolderMenu.module.css'
 
-function FolderMenu({ deleteFolder }) {
+function FolderMenu({ deleteFolder, editFolder }) {
     return (
         <div className={styles.container}>
             <GearIcon classes={styles.gear} />
@@ -14,7 +14,7 @@ function FolderMenu({ deleteFolder }) {
                     <DeleteIcon click={deleteFolder} classes={styles.itemIcon} />
                 </div>
                 <div className={styles.menuItem}>
-                    <EditIcon classes={styles.itemIcon} />
+                    <EditIcon click={editFolder} classes={styles.itemIcon} />
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ import CloseIcon from '../../../assets/img/CloseIcon/CloseIcon'
 
 import DeleteFolder from './DeleteFolder/DeleteFolder'
 import CreateFolder from './CreateFolder/CreateFolder'
+import EditFolder from './EditFolder/EditFolder'
 
 import styles from './Modal.module.css'
 
@@ -26,6 +27,7 @@ function Modal() {
                     />
                     {modal.content === 'createFolder' && <CreateFolder />}
                     {modal.content === 'deleteFolder' && <DeleteFolder />}
+                    {modal.content === 'editFolder' && <EditFolder />}
                 </div>
             </div>,
             modalRoot

@@ -31,12 +31,12 @@ function Todo({ todo, deleteTodo, setTodos }) {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: 'todo',
-        item: { id: todo._id },
+        item: { id: todo._id, folder: todo.folder },
         collect: monitor => ({
             isDragging: !!monitor.isDragging()
         }),
         end: (item, monitor) => {
-            if (monitor.didDrop()) {
+            if (monitor.didDrop() && item.folder) {
                 setTodos(prev => {
                     return prev.filter(prevTodo => prevTodo._id !== item.id)
                 })
@@ -52,7 +52,7 @@ function Todo({ todo, deleteTodo, setTodos }) {
             <Checkbox click={toggleComplete} completed={completed} classes={styles.checkbox} />
 
 
-            <div onClick={() => setOpen(!open)} className={cn(styles.main)}>
+            <div onClick={() => todo.text && setOpen(!open)} className={cn(styles.main)}>
                 <div className={styles.content}>
                     <div className={styles.titleContainer}>
                         <h2 className={styles.title}>{todo.title}</h2>

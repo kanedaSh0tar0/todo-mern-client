@@ -7,7 +7,6 @@ import { getTodos } from '../../../store/todos'
 import { setIsOpen } from '../../../store/modal'
 import { callAlert } from '../../../store/alert'
 
-import Loader from '../../UI/Loader/Loader'
 import Todo from '../Todo/Todo'
 import FolderMenu from '../FolderMenu/FolderMenu'
 import AddIcon from '../../../assets/img/AddIcon/AddIcon'
@@ -41,8 +40,6 @@ function Todos() {
             })
     }
 
-    if (fetchTodos.status === 'pending') return <Loader />
-
     return (
         <div className={styles.container}>
             <div className={styles.folderContainer}>
@@ -51,6 +48,7 @@ function Todos() {
                     &&
                     <FolderMenu
                         deleteFolder={() => dispatch(setIsOpen({ isOpen: true, content: 'deleteFolder' }))}
+                        editFolder={() => dispatch(setIsOpen({ isOpen: true, content: 'editFolder' }))}
                     />
                 }
             </div>
