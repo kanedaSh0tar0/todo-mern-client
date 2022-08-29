@@ -42,18 +42,18 @@ function EditFolder() {
             })
         }
 
-        const body = JSON.stringify({
+        const body = {
             name: folderName,
             color: currentColor,
             id: currentFolder.id
-        })
+        }
 
-        const res = requestHelper('todo/editFolder', 'PATCH', body)
+        const res = requestHelper('todo/editFolder', 'PATCH', JSON.stringify(body))
 
         res
             .then(result => {
                 dispatch(setIsOpen({ isOpen: false, content: '' }))
-                dispatch(getFolders())
+                dispatch(getFolders(body))
                 dispatch(callAlert({ message: result.message, type: 'ok' }))
             })
             .catch(err => {

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { API_URL } from '../config'
 
-export const getFolders = createAsyncThunk('folders/getFolders', async (_, { dispatch, rejecteWithValue }) => {
+export const getFolders = createAsyncThunk('folders/getFolders', async (currentFolder, { dispatch, rejectWithValue }) => {
     try {
         const res = await fetch(`${API_URL}api/todo/folder`, {
             headers: {
@@ -15,13 +15,13 @@ export const getFolders = createAsyncThunk('folders/getFolders', async (_, { dis
         if (!res.ok) {
             throw resBody.message
         }
-
-        if (resBody.legth) dispatch(setCurrentFolder(resBody[0]?._id))
+        console.log(currentFolder);
+        if (currentFolder) dispatch(setCurrentFolder(currentFolder))
 
         return resBody
     } catch (err) {
         console.log(err)
-        rejecteWithValue(err)
+        rejectWithValue(err)
     }
 })
 

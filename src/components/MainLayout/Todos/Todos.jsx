@@ -71,7 +71,6 @@ function Todos() {
                 </Link>
             </div>
 
-
         </div>
     )
 }

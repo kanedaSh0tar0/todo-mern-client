@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { API_URL } from '../config'
 
-export const getTodos = createAsyncThunk('todos/getTodos', async (folder, { rejecteWithValue }) => {
+export const getTodos = createAsyncThunk('todos/getTodos', async (folder, { rejectWithValue }) => {
     try {
         const token = localStorage.getItem('token') || ''
 
@@ -18,7 +18,7 @@ export const getTodos = createAsyncThunk('todos/getTodos', async (folder, { reje
 
         return resBody
     } catch (err) {
-        return rejecteWithValue(err)
+        return rejectWithValue(err)
     }
 })
 
