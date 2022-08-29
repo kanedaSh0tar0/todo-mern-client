@@ -15,7 +15,7 @@ export const getFolders = createAsyncThunk('folders/getFolders', async (currentF
         if (!res.ok) {
             throw resBody.message
         }
-        console.log(currentFolder);
+
         if (currentFolder) dispatch(setCurrentFolder(currentFolder))
 
         return resBody
