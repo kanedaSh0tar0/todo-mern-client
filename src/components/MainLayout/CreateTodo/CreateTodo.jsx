@@ -67,7 +67,7 @@ function CreateTodo() {
                         })]
                     }
                     classes={styles.select}
-                    setValue={item => dispatch(setCurrentFolder({ name: item.label, id: item.value }))}
+                    setValue={item => dispatch(setCurrentFolder({ name: item.label, id: item.value, color: item.color }))}
                     currentValue={currentFolder.id || ''}
                 />
             }

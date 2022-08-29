@@ -39,7 +39,7 @@ function CreateFolder() {
             })
         }
 
-        const res = requestHelper('todo/folder', 'POST', JSON.stringify({ name: folderName.trim(), color: currentColor }))
+        const res = requestHelper('folder/create', 'POST', JSON.stringify({ name: folderName.trim(), color: currentColor }))
         res
             .then(result => {
                 dispatch(setIsOpen({ isOpen: false, content: '' }))

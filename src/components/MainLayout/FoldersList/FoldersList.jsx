@@ -38,7 +38,7 @@ function FoldersList() {
     return (
         <div className={styles.container}>
             <div className={styles.controls}>
-                <Button click={() => { handleСhooseFolder({ name: '', id: '' }) }}>All todos</Button>
+                <Button click={() => { handleСhooseFolder({ name: '', id: '', color: '' }) }}>All todos</Button>
                 <CreateFolderIcon classes={styles.creteFolder} click={() => dispatch(setIsOpen({ isOpen: true, content: 'createFolder' }))} />
             </div>
             <ul className={styles.list}>

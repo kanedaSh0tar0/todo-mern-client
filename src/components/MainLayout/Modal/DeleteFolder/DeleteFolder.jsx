@@ -14,7 +14,7 @@ function DeleteFolder() {
     const dispatch = useDispatch()
 
     const deleteFolder = async () => {
-        const res = requestHelper('todo/folder', 'DELETE', JSON.stringify({ folderId: folders.currentFolder.id }))
+        const res = requestHelper('folder/delete', 'DELETE', JSON.stringify({ folderId: folders.currentFolder.id }))
         res
             .then(result => {
                 dispatch(callAlert({ message: result.message, type: 'ok' }))

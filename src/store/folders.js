@@ -4,7 +4,7 @@ import { API_URL } from '../config'
 
 export const getFolders = createAsyncThunk('folders/getFolders', async (currentFolder, { dispatch, rejectWithValue }) => {
     try {
-        const res = await fetch(`${API_URL}api/todo/folder`, {
+        const res = await fetch(`${API_URL}api/folder/get`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

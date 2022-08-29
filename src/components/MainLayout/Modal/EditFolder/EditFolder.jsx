@@ -19,13 +19,14 @@ function EditFolder() {
     const dispatch = useDispatch()
     const currentFolder = useSelector(state => state.folders.currentFolder)
     const [folderName, setFolderName] = useState('')
-    const [currentColor, setCurrentColor] = useState(colors[0].value)
+    const [currentColor, setCurrentColor] = useState('')
     const [tooltip, setTooltip] = useState(false)
 
     useEffect(() => {
+        console.log(currentFolder)
         setFolderName(currentFolder.name)
         setCurrentColor(currentFolder.color)
-    }, [])
+    }, [currentFolder])
 
     const editFolder = () => {
         if (!folderName.trim().length) {
@@ -48,7 +49,7 @@ function EditFolder() {
             id: currentFolder.id
         }
 
-        const res = requestHelper('todo/editFolder', 'PATCH', JSON.stringify(body))
+        const res = requestHelper('folder/edit', 'PATCH', JSON.stringify(body))
 
         res
             .then(result => {

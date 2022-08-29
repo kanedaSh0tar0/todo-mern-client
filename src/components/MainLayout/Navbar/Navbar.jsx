@@ -21,7 +21,7 @@ const Navbar = () => {
 
     const moveToAllTodos = () => {
         navigate('/')
-        dispatch(setCurrentFolder({ name: '', id: '' }))
+        dispatch(setCurrentFolder({ name: '', id: '', color: '' }))
     }
 
     return (
