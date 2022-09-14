@@ -47,7 +47,8 @@ const user = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            AuthService.logout()
+            const res = AuthService.logout()
+            console.log(res)
             localStorage.removeItem('token')
             state.status = 'logout'
             state.currentUser = {}

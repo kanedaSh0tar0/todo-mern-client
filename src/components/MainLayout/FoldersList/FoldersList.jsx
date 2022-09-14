@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { getTodos } from '../../../store/todos'
 import { setIsOpen } from '../../../store/modal'
-import { setCurrentFolder } from '../../../store/folders'
+import { getFolders, setCurrentFolder } from '../../../store/folders'
 
 import Button from '../../UI/Button/Button'
 import FoldersListItem from '../FoldersListItem/FoldersListItem'
@@ -18,6 +18,10 @@ function FoldersList() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
+
+    useEffect(() => {
+        dispatch(getFolders())
+    }, [])
 
     useEffect(() => {
         if (folders.status === 'fulfilled') {
