@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import { callAlert } from '../../store/alert'
-import { API_URL } from '../../config'
+import { registrationUser } from '../../store/user'
 
 import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button'
@@ -11,56 +10,34 @@ import Button from '../UI/Button/Button'
 import styles from './Auth.module.css'
 
 function Registration() {
-    const dispatch = useDispatch()
     const [email, setEmail] = useState(JSON.parse(localStorage.getItem('registrationForm'))?.email || '')
-    const [password, setPassword] = useState(JSON.parse(localStorage.getItem('registrationForm'))?.password || '')
+    const [password, setPassword] = useState('')
     const [name, setName] = useState(JSON.parse(localStorage.getItem('registrationForm'))?.name || '')
     const [surname, setSurname] = useState(JSON.parse(localStorage.getItem('registrationForm'))?.surname || '')
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     useEffect(() => {
-        localStorage.setItem('registrationForm', JSON.stringify({ email, password, name, surname }))
-    }, [email, password, name, surname])
+        localStorage.setItem('registrationForm', JSON.stringify({ email, name, surname }))
+    }, [email, name, surname])
 
-    const handleClick = async () => {
-        const formBody = JSON.stringify({
+    const handleClick = () => {
+        const formBody = {
             email,
             password,
             name,
             surname
-        })
-
-        try {
-            const res = await fetch(`${API_URL}api/auth/registration`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: formBody
-            })
-
-            const resBody = await res.json()
-
-            if (!res.ok) {
-                console.log(resBody)
-                return dispatch(callAlert({
-                    message: resBody.message || resBody.errors[0].msg,
-                    type: 'error'
-                }))
-            }
-
-            dispatch(callAlert({ message: resBody.message, type: 'ok' }))
-            const userEmail = JSON.parse(localStorage.getItem('registrationForm')).email
-            localStorage.setItem('loginForm', JSON.stringify({ email: userEmail, password: '' }))
-            localStorage.removeItem('registrationForm')
-            navigate('/login')
-        } catch (err) {
-            console.log(err)
-            dispatch(callAlert({
-                message: 'Something went wrong',
-                type: 'error'
-            }))
         }
+
+        const redirect = () => {
+            navigate('/', { replace: true })
+        }
+
+        dispatch(registrationUser({ formBody, redirect }))
+
+        const userEmail = JSON.parse(localStorage.getItem('registrationForm')).email
+        localStorage.setItem('loginForm', JSON.stringify({ email: userEmail }))
+        localStorage.removeItem('registrationForm')
     }
 
     return (

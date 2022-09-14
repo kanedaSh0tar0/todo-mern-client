@@ -23,7 +23,6 @@ function EditFolder() {
     const [tooltip, setTooltip] = useState(false)
 
     useEffect(() => {
-        console.log(currentFolder)
         setFolderName(currentFolder.name)
         setCurrentColor(currentFolder.color)
     }, [currentFolder])

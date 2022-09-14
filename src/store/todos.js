@@ -1,14 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
+import fetchInterceptor from '../utils/fetchInterceptor'
 import { API_URL } from '../config'
 
 export const getTodos = createAsyncThunk('todos/getTodos', async (folder, { rejectWithValue }) => {
     try {
-        const token = localStorage.getItem('token') || ''
-
-        const res = await fetch(`${API_URL}api/todo/get${folder ? '?folder=' + folder : ''}`, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
+        const res = await fetchInterceptor(`${API_URL}todo/get${folder ? '?folder=' + folder : ''}`)
 
         const resBody = await res.json()
 
@@ -36,8 +33,8 @@ const todos = createSlice({
                 state.status = 'pending'
             })
             .addCase(getTodos.fulfilled, (state, action) => {
-                state.status = 'fulfilled'
                 state.todos = action.payload
+                state.status = 'fulfilled'
             })
             .addCase(getTodos.rejected, (state) => {
                 state.status = 'rejected'

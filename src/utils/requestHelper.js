@@ -1,13 +1,10 @@
 import { API_URL } from '../config'
+import fetchInterceptor from '../utils/fetchInterceptor'
 
 export async function requestHelper(route, method, body) {
     try {
-        const res = await fetch(`${API_URL}api/${route}`, {
+        const res = await fetchInterceptor(`${API_URL}${route}`, {
             method,
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
             body
         })
 

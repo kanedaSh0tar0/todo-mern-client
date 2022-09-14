@@ -7,6 +7,7 @@ import { requestHelper } from '../../../utils/requestHelper'
 import DeleteIcon from '../../../assets/img/DeleteIcon/DeleteIcon'
 import Checkbox from '../../UI/Checkbox/Checkbox'
 import DocumentIcon from '../../../assets/img/DocumentIcon/DocumentIcon'
+import HandIcon from '../../../assets/img/HandIcon/HandIcon'
 
 import styles from './Todo.module.css'
 
@@ -29,7 +30,7 @@ function Todo({ todo, deleteTodo, setTodos }) {
         requestHelper('todo/edit', 'PATCH', JSON.stringify(editedTodo))
     }
 
-    const [{ isDragging }, drag] = useDrag(() => ({
+    const [{ isDragging }, drag, preview] = useDrag(() => ({
         type: 'todo',
         item: { id: todo._id, folder: todo.folder },
         collect: monitor => ({
@@ -47,7 +48,6 @@ function Todo({ todo, deleteTodo, setTodos }) {
     return (
         <div
             className={cn(styles.item, isDragging && styles.dragged, open && styles.item_open, completed && styles.completed)}
-            ref={drag}
         >
             <Checkbox click={toggleComplete} completed={completed} classes={styles.checkbox} />
 
@@ -65,7 +65,10 @@ function Todo({ todo, deleteTodo, setTodos }) {
                 </div>
             </div>
 
-            <DeleteIcon click={() => deleteTodo(todo._id)} classes={styles.delete} />
+            <div className={styles.contolPanel} >
+                <div ref={drag}><HandIcon classes={styles.grab} /></div>
+                <DeleteIcon click={() => deleteTodo(todo._id)} classes={styles.delete} />
+            </div>
         </div >
     )
 }

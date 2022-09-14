@@ -1,50 +1,37 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import { API_URL } from '../config'
+import AuthService from '../services/authService'
 
 export const loginUser = createAsyncThunk('user/loginUser', async ({ formBody, redirect }, { rejectWithValue }) => {
     try {
-        const res = await fetch(`${API_URL}api/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: formBody
-        })
+        const userData = await AuthService.login(formBody)
 
-        const resBody = await res.json()
-
-        if (!res.ok) {
-            throw resBody.message
-        }
-
-        localStorage.setItem('token', resBody.token)
         redirect()
-        return resBody
+        return userData
     } catch (err) {
         return rejectWithValue(err)
     }
-}
-)
+})
 
-export const authUser = createAsyncThunk('user/authUser', async (_, { rejectWithValue }) => {
+export const registrationUser = createAsyncThunk('user/registrationUser', async ({ formBody, redirect }, { rejectWithValue }) => {
     try {
-        const token = localStorage.getItem('token') || ''
+        const userData = await AuthService.registration(formBody)
 
-        const res = await fetch(`${API_URL}api/auth/auth`, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-
-        const resBody = await res.json()
-
-        if (!res.ok) {
-            throw resBody.message
-        }
-
-        localStorage.setItem('token', resBody.token)
-        return resBody
+        redirect()
+        return userData
     } catch (err) {
-        localStorage.removeItem('token')
+        return rejectWithValue(err)
+    }
+})
+
+export const checkAuth = createAsyncThunk('user/checkAuth', async (_, { rejectWithValue }) => {
+    try {
+        const response = await AuthService.refresh()
+        const responseBody = await response.json()
+
+        localStorage.setItem('token', responseBody.accessToken)
+        return responseBody
+    } catch (err) {
         return rejectWithValue(err)
     }
 })
@@ -60,6 +47,7 @@ const user = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
+            AuthService.logout()
             localStorage.removeItem('token')
             state.status = 'logout'
             state.currentUser = {}
@@ -72,28 +60,43 @@ const user = createSlice({
                 state.status = 'pending'
             })
             .addCase(loginUser.fulfilled, (state, action) => {
-                state.status = 'fulfilled'
                 state.currentUser = action.payload.user
                 state.isAuth = true
+                state.status = 'fulfilled'
             })
             .addCase(loginUser.rejected, (state, action) => {
                 alert(action.payload)
-                state.status = 'rejected'
                 state.currentUser = {}
                 state.isAuth = false
+                state.status = 'rejected'
             })
-            .addCase(authUser.pending, (state) => {
+            .addCase(registrationUser.pending, (state) => {
                 state.status = 'pending'
             })
-            .addCase(authUser.fulfilled, (state, action) => {
-                state.status = 'fulfilled'
+            .addCase(registrationUser.fulfilled, (state, action) => {
                 state.currentUser = action.payload.user
                 state.isAuth = true
+                state.status = 'fulfilled'
             })
-            .addCase(authUser.rejected, (state) => {
-                state.status = 'rejected'
+            .addCase(registrationUser.rejected, (state, action) => {
+                alert(action.payload)
                 state.currentUser = {}
                 state.isAuth = false
+                state.status = 'rejected'
+            })
+            .addCase(checkAuth.pending, (state) => {
+                state.status = 'pending'
+            })
+            .addCase(checkAuth.fulfilled, (state, action) => {
+                state.currentUser = action.payload.user
+                state.isAuth = true
+                state.status = 'fulfilled'
+            })
+            .addCase(checkAuth.rejected, (state, action) => {
+                alert(action.payload)
+                state.currentUser = {}
+                state.isAuth = false
+                state.status = 'rejected'
             })
     }
 })

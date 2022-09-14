@@ -1,14 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
+import fetchInterceptor from '../utils/fetchInterceptor'
 import { API_URL } from '../config'
 
 export const getFolders = createAsyncThunk('folders/getFolders', async (currentFolder, { dispatch, rejectWithValue }) => {
     try {
-        const res = await fetch(`${API_URL}api/folder/get`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        const res = await fetchInterceptor(`${API_URL}folder/get`)
 
         const resBody = await res.json()
 
@@ -20,7 +17,6 @@ export const getFolders = createAsyncThunk('folders/getFolders', async (currentF
 
         return resBody
     } catch (err) {
-        console.log(err)
         rejectWithValue(err)
     }
 })

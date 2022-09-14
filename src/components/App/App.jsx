@@ -1,9 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
-import { authUser } from '../../store/user'
+import { checkAuth } from '../../store/user'
 
 import NotFound from '../NotFound/NotFound'
 import MainLayout from '../MainLayout/MainLayout'
@@ -12,6 +11,9 @@ import Login from '../Auth/Login'
 import Todos from '../MainLayout/Todos/Todos'
 import CreateTodo from '../MainLayout/CreateTodo/CreateTodo'
 
+import { getTodos } from '../../store/todos'
+import { getFolders } from '../../store/folders'
+
 import Alert from '../UI/Alert/Alert'
 import Loader from '../UI/Loader/Loader'
 
@@ -19,21 +21,19 @@ import './App.css'
 
 function App() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const user = useSelector(state => state.user)
-  const location = useLocation()
 
   useEffect(() => {
-    dispatch(authUser())
+    if (localStorage.getItem('token')) {
+      dispatch(checkAuth())
+        .then(() => {
+          dispatch(getTodos(''))
+          dispatch(getFolders())
+        })
+    }
   }, [])
-
-  useEffect(() => {
-    if (user.isAuth) navigate(location.state?.from?.pathname || '/', { replace: true })
-  }, [user])
 
   return (
     <>
-
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Todos />} />

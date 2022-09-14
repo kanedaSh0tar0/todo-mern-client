@@ -20,12 +20,14 @@ function Todos() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        setTodos(fetchTodos.todos)
+        if (fetchTodos.status === 'fulfilled') {
+            setTodos(fetchTodos.todos)
+        }
     }, [fetchTodos])
 
     useEffect(() => {
-        dispatch(getTodos(folders.currentFolder.id || ''))
-    }, [folders, dispatch])
+        dispatch(getTodos(folders.currentFolder.id))
+    }, [folders.currentFolder])
 
     const deleteTodo = async id => {
         const res = requestHelper('todo/delete', 'DELETE', JSON.stringify({ id }))

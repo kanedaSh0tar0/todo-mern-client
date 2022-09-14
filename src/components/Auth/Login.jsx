@@ -31,7 +31,7 @@ function Login() {
         navigate(fromPage, { replace: true })
     }
 
-    const handleClick = async () => {
+    const handleLogin = () => {
         if (!email.trim().length) {
             return setTooltipMail({
                 isOpen: true,
@@ -46,19 +46,16 @@ function Login() {
             })
         }
 
-        const formBody = JSON.stringify({
-            email,
-            password
-        })
+        const formBody = { email, password }
 
         dispatch(loginUser({ formBody, redirect }))
 
-        localStorage.setItem('loginForm', JSON.stringify({ email, password: '' }))
+        localStorage.setItem('loginForm', JSON.stringify({ email }))
     }
 
     useEffect(() => {
-        localStorage.setItem('loginForm', JSON.stringify({ email, password }))
-    }, [email, password])
+        localStorage.setItem('loginForm', JSON.stringify({ email }))
+    }, [email])
 
     return (
         <div className={styles.container}>
@@ -98,7 +95,7 @@ function Login() {
                     </Tooltip>
                 </div>
 
-                <Button classes={styles.authBtn} click={handleClick}>Login</Button>
+                <Button classes={styles.authBtn} click={handleLogin}>Login</Button>
                 <Link className={styles.changeAuth} to="/registration">Don`t have account?</Link>
             </div>
         </div>

@@ -15,10 +15,6 @@ const Navbar = () => {
     const navigate = useNavigate()
     const user = useSelector(state => state.user)
 
-    const handleLogout = () => {
-        dispatch(logout())
-    }
-
     const moveToAllTodos = () => {
         navigate('/')
         dispatch(setCurrentFolder({ name: '', id: '', color: '' }))
@@ -34,8 +30,7 @@ const Navbar = () => {
                     {user.currentUser.name}
                 </h2>
 
-                <LogoutIcon click={handleLogout} classes={styles.logout} />
-
+                <LogoutIcon click={() => dispatch(logout())} classes={styles.logout} />
             </div>
 
             <FoldersList />

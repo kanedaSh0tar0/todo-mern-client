@@ -8,7 +8,7 @@ import styles from './FoldersListItem.module.css'
 function FoldersListItem({ folder, classes, click }) {
     const movingToFolder = async (folderId, todoId) => {
         const body = JSON.stringify({ folderId, todoId })
-        requestHelper('folder/get', 'PATCH', body)
+        requestHelper('todo/folder', 'PATCH', body)
     }
 
     const [{ isOver }, drop] = useDrop({
