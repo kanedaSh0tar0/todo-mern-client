@@ -20,10 +20,9 @@ function FoldersList() {
     const location = useLocation()
 
     useEffect(() => {
-        dispatch(getFolders())
-            .then(() => {
-                setFoldersList(folders.folders)
-            })
+        if (folders.status === 'fulfilled') {
+            setFoldersList(folders.folders)
+        }
     }, [])
 
     useEffect(() => {

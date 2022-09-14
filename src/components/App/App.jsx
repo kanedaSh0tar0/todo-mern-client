@@ -25,6 +25,8 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('token')) {
       dispatch(checkAuth())
+      dispatch(getFolders())
+      dispatch(getTodos())
     }
   }, [])
 
