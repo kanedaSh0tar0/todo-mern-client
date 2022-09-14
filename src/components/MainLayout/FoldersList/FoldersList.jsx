@@ -21,6 +21,9 @@ function FoldersList() {
 
     useEffect(() => {
         dispatch(getFolders())
+            .then(() => {
+                setFoldersList(folders.folders)
+            })
     }, [])
 
     useEffect(() => {
