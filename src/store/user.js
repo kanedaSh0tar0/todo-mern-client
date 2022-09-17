@@ -38,7 +38,7 @@ export const checkAuth = createAsyncThunk('user/checkAuth', async (_, { rejectWi
 
 const initialState = {
     status: '',
-    currentUser: {},
+    currentUser: { name: 'User' },
     isAuth: false
 }
 

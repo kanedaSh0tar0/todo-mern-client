@@ -27,7 +27,6 @@ function App() {
     if (localStorage.getItem('token') && localStorage.getItem('token') !== 'undefined') {
       dispatch(checkAuth())
         .then(() => {
-          console.log('then')
           dispatch(getTodos())
           dispatch(getFolders())
         })

@@ -20,6 +20,11 @@ const Navbar = () => {
         dispatch(setCurrentFolder({ name: '', id: '', color: '' }))
     }
 
+    const handleLogout = () => {
+        navigate('/login')
+        dispatch(logout())
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.logoArea}>
@@ -30,7 +35,7 @@ const Navbar = () => {
                     {user.currentUser.name}
                 </h2>
 
-                <LogoutIcon click={() => dispatch(logout())} classes={styles.logout} />
+                <LogoutIcon click={handleLogout} classes={styles.logout} />
             </div>
 
             <FoldersList />

@@ -1,6 +1,5 @@
 import cn from 'classnames'
 import { useState, useRef, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { useDrag } from 'react-dnd'
 
 import fetchInterceptor from '../../../utils/fetchInterceptor'
@@ -16,7 +15,6 @@ function Todo({ todo, deleteTodo, setTodos }) {
     const [completed, setCompleted] = useState(todo.completed)
     const [open, setOpen] = useState(false)
     const [openHeight, setOpenHeight] = useState({ maxHeight: 0 })
-    const currentFolder = useSelector(state => state.folders.currentFolder)
     const hideContent = useRef(null)
 
     useEffect(() => {
@@ -42,7 +40,7 @@ function Todo({ todo, deleteTodo, setTodos }) {
             isDragging: !!monitor.isDragging()
         }),
         end: (item, monitor) => {
-            if (monitor.didDrop() && item.folder && item.folder !== currentFolder.id) {
+            if (monitor.didDrop() && item.folder) {
                 setTodos(prev => {
                     return prev.filter(prevTodo => prevTodo._id !== item.id)
                 })

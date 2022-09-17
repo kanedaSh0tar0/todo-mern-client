@@ -49,7 +49,6 @@ function Login() {
         }
 
         const formBody = { email, password }
-
         dispatch(loginUser({ formBody, redirect }))
             .then(() => {
                 dispatch(getTodos())
