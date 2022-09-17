@@ -1,21 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import fetchInterceptor from '../utils/fetchInterceptor'
-import { API_URL } from '../config'
 
-export const getFolders = createAsyncThunk('folders/getFolders', async (currentFolder, { dispatch, rejectWithValue }) => {
+export const getFolders = createAsyncThunk('folders/getFolders', async (_, { rejectWithValue }) => {
     try {
-        const res = await fetchInterceptor(`${API_URL}folder/get`)
-
-        const resBody = await res.json()
-
-        if (!res.ok) {
-            throw resBody.message
-        }
-
-        if (currentFolder) dispatch(setCurrentFolder(currentFolder))
-
-        return resBody
+        return await fetchInterceptor('folder/get')
     } catch (err) {
         rejectWithValue(err)
     }
@@ -47,8 +36,8 @@ const folders = createSlice({
                 state.status = 'pending'
             })
             .addCase(getFolders.fulfilled, (state, action) => {
-                state.status = 'fulfilled'
                 state.folders = action.payload
+                state.status = 'fulfilled'
             })
             .addCase(getFolders.rejected, (state) => {
                 state.status = 'rejected'

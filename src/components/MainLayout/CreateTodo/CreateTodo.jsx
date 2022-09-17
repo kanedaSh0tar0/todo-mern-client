@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { requestHelper } from '../../../utils/requestHelper'
+import fetchInterceptor from '../../../utils/fetchInterceptor'
 import { setCurrentFolder } from '../../../store/folders'
 import { callAlert } from '../../../store/alert'
 
@@ -45,8 +45,10 @@ function CreateTodo() {
             date: Date.now()
         })
 
-        const res = requestHelper('todo/create', 'POST', newTodo)
-        res
+        fetchInterceptor('todo/create', {
+            method: 'POST',
+            body: newTodo
+        })
             .then(result => {
                 dispatch(callAlert({ message: result.message, type: 'ok' }))
                 setTitle('')

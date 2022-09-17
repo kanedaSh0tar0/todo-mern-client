@@ -12,7 +12,7 @@ function Loader() {
     useEffect(() => {
         if (
             todos.status === 'pending' ||
-            user.status === 'pending' ||
+            // user.status === 'pending' ||
             folders.status === 'pending'
         ) {
             setActive(true)

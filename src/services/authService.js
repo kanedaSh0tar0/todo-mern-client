@@ -3,40 +3,28 @@ import { API_URL } from '../config'
 
 export default class AuthService {
     static async login({ email, password }) {
-        const response = await fetchInterceptor(`${API_URL}auth/login`, {
+        const response = await fetchInterceptor('auth/login', {
             method: 'POST',
             body: JSON.stringify({ email, password })
         })
 
-        const userData = await response.json()
+        localStorage.setItem('token', response.accessToken)
 
-        if (!response.ok) {
-            throw userData.message
-        }
-
-        localStorage.setItem('token', userData.accessToken)
-
-        return userData
+        return response
     }
 
     static async registration({ email, password, name, surname }) {
-        const response = await fetchInterceptor(`${API_URL}auth/registration`, {
+        const response = await fetchInterceptor('auth/registration', {
             method: 'POST',
             body: JSON.stringify({ email, password, name, surname })
         })
 
-        const userData = await response.json()
-
-        if (!response.ok) {
-            throw userData.message
-        }
-
-        localStorage.setItem('token', userData.accessToken)
-        return userData
+        localStorage.setItem('token', response.accessToken)
+        return response
     }
 
     static async logout() {
-        return await fetchInterceptor(`${API_URL}auth/logout`)
+        return await fetchInterceptor('auth/logout')
     }
 
     static async refresh() {

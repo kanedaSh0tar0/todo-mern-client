@@ -1,42 +1,55 @@
 import AuthService from '../services/authService'
 
+import { API_URL } from '../config'
+
 const fetchInterceptor = async (...args) => {
-    const [route, config = {}] = args
+    try {
 
-    // request interceptor
-    config.headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-    }
-    config.credentials = 'include'
+        const [route, config = {}] = args
 
-    // request
-    const response = await fetch(route, config)
+        // request interceptor
+        config.headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+        config.credentials = 'include'
 
-    // response interceptor
-    if (response.status === 401) {
-        try {
+        // request
+        const response = await fetch(`${API_URL}${route}`, config)
+        const responseBody = await response.json()
+
+        // response interceptor
+        if (response.status === 401) {
             const refreshResponse = await AuthService.refresh()
-            const responseBody = await refreshResponse.json()
+            const refreshResponseBody = await refreshResponse.json()
 
             if (!refreshResponse.ok) {
                 throw responseBody.message
             }
 
-            localStorage.setItem('token', responseBody.accessToken)
+            localStorage.setItem('token', refreshResponseBody.accessToken)
             config.headers = {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${responseBody.accessToken}`
+                'Authorization': `Bearer ${refreshResponseBody.accessToken}`
             }
 
-            return await fetch(route, config)
-        } catch (err) {
-            console.log(err)
+            const newResponse = await fetch(`${API_URL}${route}`, config)
+            const newResponseBody = newResponse.json()
+
+            return newResponseBody
         }
 
+        // Not related to authorization error
+        if (!response.ok) {
+            throw responseBody.message
+        }
+
+        return responseBody
+    } catch (err) {
+        console.log(err)
     }
 
-    return response
+
 }
 
 export default fetchInterceptor

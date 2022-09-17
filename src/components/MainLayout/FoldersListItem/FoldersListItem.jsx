@@ -1,14 +1,16 @@
 import cn from 'classnames'
 import { useDrop } from 'react-dnd'
 
-import { requestHelper } from '../../../utils/requestHelper'
+import fetchInterceptor from '../../../utils/fetchInterceptor'
 
 import styles from './FoldersListItem.module.css'
 
 function FoldersListItem({ folder, classes, click }) {
     const movingToFolder = async (folderId, todoId) => {
-        const body = JSON.stringify({ folderId, todoId })
-        requestHelper('todo/folder', 'PATCH', body)
+        fetchInterceptor('todo/folder', {
+            method: 'PATCH',
+            body: JSON.stringify({ folderId, todoId })
+        })
     }
 
     const [{ isOver }, drop] = useDrop({

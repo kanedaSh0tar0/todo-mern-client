@@ -23,10 +23,12 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') && localStorage.getItem('token') !== 'undefined') {
       dispatch(checkAuth())
-      dispatch(getFolders())
-      dispatch(getTodos())
+        .then(() => {
+          dispatch(getTodos())
+          dispatch(getFolders())
+        })
     }
   }, [])
 

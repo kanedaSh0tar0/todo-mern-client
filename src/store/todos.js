@@ -1,19 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import fetchInterceptor from '../utils/fetchInterceptor'
-import { API_URL } from '../config'
 
 export const getTodos = createAsyncThunk('todos/getTodos', async (folder, { rejectWithValue }) => {
     try {
-        const res = await fetchInterceptor(`${API_URL}todo/get${folder ? '?folder=' + folder : ''}`)
-
-        const resBody = await res.json()
-
-        if (!res.ok) {
-            throw resBody.message
-        }
-
-        return resBody
+        return await fetchInterceptor(`todo/get${folder ? '?folder=' + folder : ''}`)
     } catch (err) {
         return rejectWithValue(err)
     }

@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { requestHelper } from '../../../../utils/requestHelper'
+import fetchInterceptor from '../../../../utils/fetchInterceptor'
 import { setIsOpen } from '../../../../store/modal'
 import { callAlert } from '../../../../store/alert'
 import { getFolders } from '../../../../store/folders'
@@ -39,8 +39,10 @@ function CreateFolder() {
             })
         }
 
-        const res = requestHelper('folder/create', 'POST', JSON.stringify({ name: folderName.trim(), color: currentColor }))
-        res
+        fetchInterceptor('folder/create', {
+            method: 'POST',
+            body: JSON.stringify({ name: folderName.trim(), color: currentColor })
+        })
             .then(result => {
                 dispatch(setIsOpen({ isOpen: false, content: '' }))
                 dispatch(getFolders())

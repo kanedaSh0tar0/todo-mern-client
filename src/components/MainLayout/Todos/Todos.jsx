@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { requestHelper } from '../../../utils/requestHelper'
-import { getTodos } from '../../../store/todos'
+import fetchInterceptor from '../../../utils/fetchInterceptor'
 import { setIsOpen } from '../../../store/modal'
 import { callAlert } from '../../../store/alert'
+import { getTodos } from '../../../store/todos'
 
 import Todo from '../Todo/Todo'
 import FolderMenu from '../FolderMenu/FolderMenu'
@@ -20,20 +20,22 @@ function Todos() {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch(getTodos(folders.currentFolder.id))
+    }, [folders.currentFolder])
+
+    useEffect(() => {
         if (fetchTodos.status === 'fulfilled') {
             setTodos(fetchTodos.todos)
         }
     }, [fetchTodos])
 
-    useEffect(() => {
-        dispatch(getTodos(folders.currentFolder.id))
-    }, [folders.currentFolder])
-
     const deleteTodo = async id => {
-        const res = requestHelper('todo/delete', 'DELETE', JSON.stringify({ id }))
-        res
-            .then(result => {
-                dispatch(callAlert({ message: result.message, type: 'ok' }))
+        fetchInterceptor('todo/delete', {
+            method: 'DELETE',
+            body: JSON.stringify({ id })
+        })
+            .then(() => {
+                dispatch(callAlert({ message: 'todo deleted', type: 'ok' }))
                 setTodos(todos.filter(todo => todo._id !== id))
             })
             .catch(err => {

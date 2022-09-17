@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { getTodos } from '../../../store/todos'
 import { setIsOpen } from '../../../store/modal'
-import { getFolders, setCurrentFolder } from '../../../store/folders'
+import { setCurrentFolder } from '../../../store/folders'
 
 import Button from '../../UI/Button/Button'
 import FoldersListItem from '../FoldersListItem/FoldersListItem'
@@ -23,19 +22,11 @@ function FoldersList() {
         if (folders.status === 'fulfilled') {
             setFoldersList(folders.folders)
         }
-    }, [])
-
-    useEffect(() => {
-        if (folders.status === 'fulfilled') {
-            setFoldersList(folders.folders)
-        }
     }, [folders])
 
     const handleСhooseFolder = (folder) => {
         dispatch(setCurrentFolder({ name: folder.name, id: folder._id, color: folder.color }))
-        if (location !== '/') {
-            navigate('/')
-        } else dispatch(getTodos(folder.id))
+        if (location !== '/') navigate('/')
     }
 
     return (
@@ -45,7 +36,7 @@ function FoldersList() {
                 <CreateFolderIcon classes={styles.creteFolder} click={() => dispatch(setIsOpen({ isOpen: true, content: 'createFolder' }))} />
             </div>
             <ul className={styles.list}>
-                {foldersList.map(folder => {
+                {foldersList?.map(folder => {
                     return <FoldersListItem
                         key={folder._id}
                         folder={folder}

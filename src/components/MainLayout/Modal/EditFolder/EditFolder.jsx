@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { requestHelper } from '../../../../utils/requestHelper'
+import fetchInterceptor from '../../../../utils/fetchInterceptor'
 import { setIsOpen } from '../../../../store/modal'
 import { getFolders } from '../../../../store/folders'
 import { callAlert } from '../../../../store/alert'
@@ -48,12 +48,13 @@ function EditFolder() {
             id: currentFolder.id
         }
 
-        const res = requestHelper('folder/edit', 'PATCH', JSON.stringify(body))
-
-        res
+        fetchInterceptor('folder/edit', {
+            method: 'PATCH',
+            body: JSON.stringify(body)
+        })
             .then(result => {
                 dispatch(setIsOpen({ isOpen: false, content: '' }))
-                dispatch(getFolders(body))
+                dispatch(getFolders())
                 dispatch(callAlert({ message: result.message, type: 'ok' }))
             })
             .catch(err => {

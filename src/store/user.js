@@ -37,7 +37,7 @@ export const checkAuth = createAsyncThunk('user/checkAuth', async (_, { rejectWi
 })
 
 const initialState = {
-    status: '',
+    status: 'pending',
     currentUser: {},
     isAuth: false
 }
@@ -47,8 +47,7 @@ const user = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            const res = AuthService.logout()
-            console.log(res)
+            AuthService.logout()
             localStorage.removeItem('token')
             state.status = 'logout'
             state.currentUser = {}

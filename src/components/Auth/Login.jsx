@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { loginUser } from '../../store/user'
+import { getTodos } from '../../store/todos'
+import { getFolders } from '../../store/folders'
 
 import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button'
@@ -49,6 +51,10 @@ function Login() {
         const formBody = { email, password }
 
         dispatch(loginUser({ formBody, redirect }))
+            .then(() => {
+                dispatch(getTodos())
+                dispatch(getFolders())
+            })
 
         localStorage.setItem('loginForm', JSON.stringify({ email }))
     }

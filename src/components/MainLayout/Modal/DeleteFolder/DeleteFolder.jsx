@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 
+import fetchInterceptor from '../../../../utils/fetchInterceptor'
 import { getFolders, setCurrentFolder } from '../../../../store/folders'
-import { requestHelper } from '../../../../utils/requestHelper'
 import { callAlert } from '../../../../store/alert'
 import { setIsOpen } from '../../../../store/modal'
 
@@ -14,8 +14,10 @@ function DeleteFolder() {
     const dispatch = useDispatch()
 
     const deleteFolder = async () => {
-        const res = requestHelper('folder/delete', 'DELETE', JSON.stringify({ folderId: folders.currentFolder.id }))
-        res
+        fetchInterceptor('folder/delete', {
+            method: 'DELETE',
+            body: JSON.stringify({ folderId: folders.currentFolder.id })
+        })
             .then(result => {
                 dispatch(callAlert({ message: result.message, type: 'ok' }))
                 dispatch(getFolders())
