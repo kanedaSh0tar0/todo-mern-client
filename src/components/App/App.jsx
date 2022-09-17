@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
@@ -21,14 +21,18 @@ import './App.css'
 
 function App() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (localStorage.getItem('token') && localStorage.getItem('token') !== 'undefined') {
       dispatch(checkAuth())
         .then(() => {
+          console.log('then')
           dispatch(getTodos())
           dispatch(getFolders())
         })
+    } else {
+      navigate('/login')
     }
   }, [])
 
